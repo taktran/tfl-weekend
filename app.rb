@@ -6,6 +6,7 @@ require 'sass'
 require 'haml'
 require 'open-uri'
 require 'nokogiri'
+require 'chronic'
 
 # Require all in lib directory
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
@@ -61,6 +62,24 @@ get '/css/style.css' do
   scss :'sass/style'
 end
 
+def has_saturday?(str)
+  saturday_regex = /saturday/i
+  saturday_regex.match(str)
+end
+
+def saturday_date
+  Chronic.parse("Saturday")
+end
+
+def has_sunday?(str)
+  sunday_regex = /sunday/i
+  sunday_regex.match(str)
+end
+
+def sunday_date
+  Chronic.parse("Sunday")
+end
+
 get '/' do
   @page_name = "home"
 
@@ -79,8 +98,14 @@ get '/' do
     status_colour = line.xpath("Status/Message/Colour/text()")
     status_bg_colour = line.xpath("Status/Message/BgColour/text()")
 
+    # TODO: Simple hacky parsing
+    date_from = saturday_date if has_saturday?(status.to_s)
+    date_to = sunday_date if has_sunday?(status.to_s)
+
     @lines.push({
       :name => name.to_s,
+      :date_from => date_from,
+      :date_to => date_to,
       :colour => colour.to_s,
       :bg_colour => bgColour.to_s,
       :status => status.to_s,

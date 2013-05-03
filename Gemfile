@@ -15,13 +15,16 @@ gem 'heroku'
 # For running on production
 gem 'rspec'
 
-# xml parsing
+# XML parsing
 gem "nokogiri", "~> 1.5.9"
+
+# Time
+gem "chronic", "~> 0.9.1"
 
 group :development, :test do
   # Servers
   gem 'shotgun'
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'debugger'
 
   # Testing
   gem 'guard'

@@ -7,5 +7,7 @@
           %li
             %p{:style => "color:\##{line[:colour]};background-color:\##{line[:bg_colour]}"}= line[:name]
             %p= line[:status]
+            %p= "from: #{line[:from_date]}"
+            %p= "to: #{line[:from_date]}"
 
   %hr
