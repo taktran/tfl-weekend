@@ -1,6 +1,11 @@
 .container-fluid
   .row-fluid
     .span12
-      %h2 Hello
-      %p Hello hello
+      %h2 TFL weekend closures
+      %ul
+        - @lines.each do |line|
+          %li
+            %p{:style => "color:\##{line[:colour]};background-color:\##{line[:bg_colour]}"}= line[:name]
+            %p= line[:status]
+
   %hr

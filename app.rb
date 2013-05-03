@@ -4,6 +4,8 @@ require 'sinatra'
 require 'sinatra/flash'
 require 'sass'
 require 'haml'
+require 'open-uri'
+require 'nokogiri'
 
 # Require all in lib directory
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
@@ -61,6 +63,32 @@ end
 
 get '/' do
   @page_name = "home"
+
+  tfl_weekend_data_url = "http://www.tfl.gov.uk/tfl/businessandpartners/syndication/feed.aspx?email=contact@tutaktran.com&feedId=1"
+
+  # Get tfl data
+  xml = Nokogiri::XML(open(tfl_weekend_data_url))
+
+  @lines = []
+  xml.xpath("//Lines/Line").each do |line|
+    name = line.xpath("Name/text()")
+    colour = line.xpath("Colour/text()")
+    bgColour = line.xpath("BgColour/text()")
+
+    status = line.xpath("Status/Message/Text/text()")
+    status_colour = line.xpath("Status/Message/Colour/text()")
+    status_bg_colour = line.xpath("Status/Message/BgColour/text()")
+
+    @lines.push({
+      :name => name.to_s,
+      :colour => colour.to_s,
+      :bg_colour => bgColour.to_s,
+      :status => status.to_s,
+      :status_colour => status_colour.to_s,
+      :status_bg_colour => status_bg_colour.to_s
+    })
+  end
+
   haml :index, :layout => :'layouts/application'
 end
 

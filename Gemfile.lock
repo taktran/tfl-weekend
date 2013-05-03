@@ -43,7 +43,7 @@ GEM
     mime-types (1.18)
     multi_json (1.2.0)
     netrc (0.7.1)
-    nokogiri (1.5.2)
+    nokogiri (1.5.9)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
@@ -110,6 +110,7 @@ DEPENDENCIES
   guard-rspec
   haml
   heroku
+  nokogiri (~> 1.5.9)
   rack
   rack-test
   rake

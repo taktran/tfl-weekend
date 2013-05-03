@@ -15,6 +15,9 @@ gem 'heroku'
 # For running on production
 gem 'rspec'
 
+# xml parsing
+gem "nokogiri", "~> 1.5.9"
+
 group :development, :test do
   # Servers
   gem 'shotgun'
