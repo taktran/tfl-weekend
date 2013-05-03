@@ -1,6 +1,6 @@
-# App
+# TFL weekend
 
-A description
+Get TFL weekend information and publish to google calendar
 
 ## Development
 
