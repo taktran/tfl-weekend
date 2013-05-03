@@ -60,8 +60,6 @@ get '/css/style.css' do
 end
 
 get '/' do
-  protect_with_http_auth!
-
   @page_name = "home"
   haml :index, :layout => :'layouts/application'
 end
